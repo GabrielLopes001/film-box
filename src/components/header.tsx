@@ -1,22 +1,45 @@
+import { ReactNode } from 'react'
 import {
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
   View,
 } from 'react-native'
-import {
-  Bars3BottomLeftIcon,
-  MagnifyingGlassIcon,
-} from 'react-native-heroicons/outline'
 
-export function Header(props: TouchableOpacityProps) {
+export type HeaderRootProps = {
+  children: ReactNode
+}
+
+type HeaderTextProps = {
+  children: ReactNode
+}
+
+type HeaderIconProps = {
+  children: ReactNode
+}
+
+type HeaderButtonProps = TouchableOpacityProps & {
+  children: ReactNode
+}
+
+function HeaderRoot({ children }: HeaderRootProps) {
   return (
     <View className="mx-4 flex-row items-center justify-between">
-      <Bars3BottomLeftIcon size="30" strokeWidth={2} color="white" />
-      <Text className="text-3xl font-bold text-white">Movie</Text>
-      <TouchableOpacity {...props}>
-        <MagnifyingGlassIcon size="30" strokeWidth={2} color="white" />
-      </TouchableOpacity>
+      {children}
     </View>
   )
 }
+
+function HeaderButton({ children, ...rest }: HeaderButtonProps) {
+  return <TouchableOpacity {...rest}>{children}</TouchableOpacity>
+}
+
+function HeaderText({ children }: HeaderTextProps) {
+  return <Text className="text-3xl font-bold text-white">{children}</Text>
+}
+
+function HeaderIcon({ children }: HeaderIconProps) {
+  return children
+}
+
+export { HeaderRoot, HeaderText, HeaderIcon, HeaderButton }

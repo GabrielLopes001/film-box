@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
+import {
+  Bars3BottomLeftIcon,
+  MagnifyingGlassIcon,
+} from 'react-native-heroicons/outline'
 
 import { MovieCardProps } from '@/components/card-movie'
 import { CardMovieList, CardMovieListProps } from '@/components/card-movie-list'
 import { CarrouselMovie } from '@/components/carrousel-movie'
-import { Header } from '@/components/header'
+import {
+  HeaderButton,
+  HeaderIcon,
+  HeaderRoot,
+  HeaderText,
+} from '@/components/header'
 import { api } from '@/services/api'
 import { MOVIES } from '@/utils/movies'
 
@@ -49,20 +58,32 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    fetchNewMovies()
-    fetchUpComingMovies()
-    fetchTopRatedMovies()
-  }, [])
+  // useEffect(() => {
+  //   fetchNewMovies()
+  //   // fetchUpComingMovies()
+  //   // fetchTopRatedMovies()
+  // }, [])
 
   return (
     <View className="flex-1">
-      <Header />
+      <HeaderRoot>
+        <HeaderButton>
+          <HeaderIcon>
+            <Bars3BottomLeftIcon size="30" strokeWidth={2} color="white" />
+          </HeaderIcon>
+        </HeaderButton>
+        <HeaderText>Movie</HeaderText>
+        <HeaderButton>
+          <HeaderIcon>
+            <MagnifyingGlassIcon size="30" strokeWidth={2} color="white" />
+          </HeaderIcon>
+        </HeaderButton>
+      </HeaderRoot>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <CarrouselMovie movies={newMovies} title="Treading" />
-        <CardMovieList movies={upComingMovies} titlePage="UpComing" />
-        <CardMovieList movies={topRatedMovies} titlePage="TopRated" />
+        <CardMovieList movies={MOVIES} titlePage="UpComing" />
+        <CardMovieList movies={MOVIES} titlePage="TopRated" />
       </ScrollView>
     </View>
   )

@@ -1,4 +1,4 @@
-import { router, useLocalSearchParams, useNavigation } from 'expo-router'
+import { router } from 'expo-router'
 import { Dimensions, Text, View } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 
@@ -15,7 +15,16 @@ export function CarrouselMovie({ movies, title }: CarrouselMovieProps) {
   // id 1096197
 
   function handleMovieDetails(id: number) {
-    router.navigate('/movie/' + id)
+    router.navigate('/details/movie/' + id)
+  }
+
+  function renderItem({ item }: { item: MovieCardProps }) {
+    return (
+      <MovieCard
+        poster_path={item.poster_path}
+        onPress={() => handleMovieDetails(item.id)}
+      />
+    )
   }
 
   return (
@@ -24,12 +33,7 @@ export function CarrouselMovie({ movies, title }: CarrouselMovieProps) {
       <Carousel
         data={movies}
         firstItem={1}
-        renderItem={({ item }) => (
-          <MovieCard
-            poster_path={item.poster_path}
-            onPress={() => handleMovieDetails(item.id)}
-          />
-        )}
+        renderItem={renderItem}
         inactiveSlideOpacity={0.6}
         sliderWidth={width}
         itemWidth={width * 0.62}

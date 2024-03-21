@@ -25,7 +25,7 @@ const { width, height } = Dimensions.get('window')
 
 export function CardMovieList({ titlePage, movies, ...rest }: Props) {
   function handleMovieDetails(id: number) {
-    router.navigate('/movie/' + id)
+    router.navigate('/details/movie/' + id)
   }
 
   return (
@@ -41,7 +41,7 @@ export function CardMovieList({ titlePage, movies, ...rest }: Props) {
         keyExtractor={(item) => item.title}
         renderItem={({ item }) => (
           <TouchableNativeFeedback
-            onPress={() => handleMovieDetails(item.id)}
+            onPress={() => handleMovieDetails(item?.id)}
             key={item.title}
           >
             <View className="mr-4 space-y-1">
