@@ -5,7 +5,6 @@ import {
   MagnifyingGlassIcon,
 } from 'react-native-heroicons/outline'
 
-import { MovieCardProps } from '@/components/card-movie'
 import { CardMovieList, CardMovieListProps } from '@/components/card-movie-list'
 import { CarrouselMovie } from '@/components/carrousel-movie'
 import {
@@ -18,8 +17,8 @@ import { api } from '@/services/api'
 import { MOVIES } from '@/utils/movies'
 
 export default function Home() {
-  const [newMovies, setNewMovies] = useState<MovieCardProps[]>(
-    [] as MovieCardProps[],
+  const [newMovies, setNewMovies] = useState<CardMovieListProps[]>(
+    [] as CardMovieListProps[],
   )
   const [upComingMovies, setUpComingMovies] = useState<CardMovieListProps[]>(
     [] as CardMovieListProps[],
@@ -60,8 +59,8 @@ export default function Home() {
 
   // useEffect(() => {
   //   fetchNewMovies()
-  //   // fetchUpComingMovies()
-  //   // fetchTopRatedMovies()
+  //   fetchUpComingMovies()
+  //   fetchTopRatedMovies()
   // }, [])
 
   return (
@@ -81,7 +80,7 @@ export default function Home() {
       </HeaderRoot>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CarrouselMovie movies={newMovies} title="Treading" />
+        <CarrouselMovie movies={MOVIES} title="Treading" />
         <CardMovieList movies={MOVIES} titlePage="UpComing" />
         <CardMovieList movies={MOVIES} titlePage="TopRated" />
       </ScrollView>

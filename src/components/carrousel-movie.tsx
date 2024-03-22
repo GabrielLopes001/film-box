@@ -1,13 +1,14 @@
 import { router } from 'expo-router'
-import { Dimensions, Text, View } from 'react-native'
+import { Dimensions, Image, Text, View } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 
-import { MovieCard, MovieCardProps } from '@/components/card-movie'
+import { MovieCardImage, MovieCardRoot } from '@/components/card-movie'
+import { CardMovieListProps } from '@/components/card-movie-list'
 
-const { width } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window')
 
 export type CarrouselMovieProps = {
-  movies: MovieCardProps[]
+  movies: CardMovieListProps[]
   title: string
 }
 
@@ -18,12 +19,23 @@ export function CarrouselMovie({ movies, title }: CarrouselMovieProps) {
     router.navigate('/details/movie/' + id)
   }
 
-  function renderItem({ item }: { item: MovieCardProps }) {
+  function renderItem({ item }: { item: CardMovieListProps }) {
     return (
-      <MovieCard
-        poster_path={item.poster_path}
+      <MovieCardRoot
+        activeOpacity={0.7}
         onPress={() => handleMovieDetails(item.id)}
-      />
+      >
+        <MovieCardImage>
+          <Image
+            source={{
+              uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+            }}
+            alt="poster"
+            style={{ width: width * 0.6, height: height * 0.4 }}
+            className="rounded-3xl"
+          />
+        </MovieCardImage>
+      </MovieCardRoot>
     )
   }
 

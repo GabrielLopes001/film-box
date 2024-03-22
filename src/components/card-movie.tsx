@@ -1,27 +1,21 @@
 /* eslint-disable camelcase */
-import {
-  Dimensions,
-  Image,
-  TouchableNativeFeedback,
-  TouchableNativeFeedbackProps,
-} from 'react-native'
+import { ReactNode } from 'react'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
-export type MovieCardProps = TouchableNativeFeedbackProps & {
-  id?: number
-  poster_path: string
+type MovieCardRootProps = TouchableOpacityProps & {
+  children: ReactNode
 }
 
-const { width, height } = Dimensions.get('window')
-
-export function MovieCard({ poster_path, ...rest }: MovieCardProps) {
-  return (
-    <TouchableNativeFeedback {...rest}>
-      <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w500${poster_path}` }}
-        alt="poster"
-        style={{ width: width * 0.6, height: height * 0.4 }}
-        className="rounded-3xl"
-      />
-    </TouchableNativeFeedback>
-  )
+type MovieCardImageProps = {
+  children: ReactNode
 }
+
+function MovieCardRoot({ children, ...rest }: MovieCardRootProps) {
+  return <TouchableOpacity {...rest}>{children}</TouchableOpacity>
+}
+
+function MovieCardImage({ children }: MovieCardImageProps) {
+  return children
+}
+
+export { MovieCardRoot, MovieCardImage }

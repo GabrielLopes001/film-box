@@ -1,6 +1,7 @@
+import { router } from 'expo-router'
 import { FlatList, Text, View } from 'react-native'
 
-import { CardCast } from './card-cast'
+import { CardCast } from '@/components/card-cast'
 
 export type CastListProps = {
   id?: number
@@ -14,9 +15,14 @@ type Props = {
 }
 
 export function CastList({ cast }: Props) {
+  function handleActorDetails(id: number) {
+    router.navigate('/details/actor/' + id)
+  }
+
   function renderItem({ item }: { item: CastListProps }) {
     return (
       <CardCast
+        onPress={() => handleActorDetails(item.id)}
         character={item.character}
         name={item.name}
         profile_path={item.profile_path}

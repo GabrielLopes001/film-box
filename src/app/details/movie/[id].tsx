@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { useLocalSearchParams, useNavigation } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { HeartIcon } from 'react-native-heroicons/solid'
 
@@ -43,10 +43,10 @@ export default function Movie() {
     }
   }
 
-  useEffect(() => {
-    fetchMoviesDetails()
-    fetchMovieCredits()
-  }, [])
+  // useEffect(() => {
+  //   fetchMoviesDetails()
+  //   fetchMovieCredits()
+  // }, [])
 
   return (
     <ScrollView

@@ -1,12 +1,17 @@
 /* eslint-disable camelcase */
 import { Dimensions, Image, Text, View } from 'react-native'
-import { CalendarIcon, ClockIcon } from 'react-native-heroicons/outline'
+import {
+  CalendarIcon,
+  ClockIcon,
+  StarIcon,
+} from 'react-native-heroicons/outline'
+import { twMerge } from 'tailwind-merge'
 
 export type MovieDetailsProps = {
   poster_path?: string
   title: string
   overview: string
-  status: string
+  vote_average: number
   release_date: string
   runtime: number
 }
@@ -36,14 +41,23 @@ export function MovieDetails({ movie }: Props) {
         {movie.title}
       </Text>
       <View className="w-full flex-row gap-8 justify-center items-center">
-        <Text className="text-center text-base font-semibold text-neutral-400">
-          {movie.status}
-        </Text>
-        <Text className="text-center text-base font-semibold text-neutral-400">
+        <Text className="text-base font-semibold text-neutral-400">
           <CalendarIcon size="14" color="gray" /> {getYear(movie.release_date)}
         </Text>
-        <Text className="text-center text-base font-semibold text-neutral-400">
+        <Text className=" text-base font-semibold text-neutral-400">
           <ClockIcon size="14" color="gray" /> {movie.runtime} min
+        </Text>
+        <Text
+          className={twMerge(
+            ' text-base font-semibold text-neutral-400',
+            movie?.vote_average > 7.0 ? 'text-orange-400' : 'text-neutral-400',
+          )}
+        >
+          <StarIcon
+            size="14"
+            color={movie.vote_average > 7.0 ? 'orange' : 'gray'}
+          />
+          {movie?.vote_average?.toFixed(2)}
         </Text>
       </View>
 

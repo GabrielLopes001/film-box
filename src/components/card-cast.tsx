@@ -1,15 +1,26 @@
 /* eslint-disable camelcase */
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from 'react-native'
 
-type CardCastProps = {
+type CardCastProps = TouchableOpacityProps & {
   profile_path: string
   character: string
   name: string
 }
 
-export function CardCast({ profile_path, character, name }: CardCastProps) {
+export function CardCast({
+  profile_path,
+  character,
+  name,
+  ...rest
+}: CardCastProps) {
   return (
-    <TouchableOpacity className="mr-4 items-center">
+    <TouchableOpacity className="mr-4 items-center" {...rest}>
       <View className="h-20 w-20 items-center overflow-hidden rounded-full border border-neutral-400">
         <Image
           className="h-24 w-20 rounded-2xl"
