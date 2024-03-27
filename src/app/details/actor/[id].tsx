@@ -45,10 +45,10 @@ export default function Actor() {
     }
   }
 
-  // useEffect(() => {
-  //   fetchActorDetails()
-  //   fetchActorMovies()
-  // }, [])
+  useEffect(() => {
+    fetchActorDetails()
+    fetchActorMovies()
+  }, [])
 
   return (
     <ScrollView

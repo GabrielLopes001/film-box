@@ -15,15 +15,11 @@ export type CarrouselMovieProps = {
 export function CarrouselMovie({ movies, title }: CarrouselMovieProps) {
   // id 1096197
 
-  function handleMovieDetails(id: number) {
-    router.navigate('/details/movie/' + id)
-  }
-
   function renderItem({ item }: { item: CardMovieListProps }) {
     return (
       <MovieCardRoot
         activeOpacity={0.7}
-        onPress={() => handleMovieDetails(item.id)}
+        onPress={() => router.navigate(`/details/movie/${item.id}`)}
       >
         <MovieCardImage>
           <Image

@@ -30,8 +30,12 @@ export function CardCast({
           alt="profile"
         />
       </View>
-      <Text className="mt-1 text-xs text-center text-white">{character}</Text>
-      <Text className="mt-1 text-xs text-center text-neutral-400">{name}</Text>
+      <Text className="mt-1 text-xs text-center text-white">
+        {character.length > 10 ? character.slice(0, 10) + '...' : character}
+      </Text>
+      <Text className="mt-1 text-xs text-center text-neutral-400">
+        {name.length > 10 ? name.slice(0, 10) + '...' : name}
+      </Text>
     </TouchableOpacity>
   )
 }

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { useLocalSearchParams, useNavigation } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
@@ -21,7 +21,6 @@ export default function Movie() {
   )
 
   const { id } = useLocalSearchParams()
-  const navigation = useNavigation()
 
   async function fetchMoviesDetails() {
     try {
@@ -43,10 +42,10 @@ export default function Movie() {
     }
   }
 
-  // useEffect(() => {
-  //   fetchMoviesDetails()
-  //   fetchMovieCredits()
-  // }, [])
+  useEffect(() => {
+    fetchMoviesDetails()
+    fetchMovieCredits()
+  }, [])
 
   return (
     <ScrollView
@@ -56,7 +55,7 @@ export default function Movie() {
     >
       <View className="mb-4">
         <HeaderRoot>
-          <HeaderButton onPress={() => navigation.goBack()}>
+          <HeaderButton onPress={() => router.navigate('/')}>
             <ChevronLeftIcon color="white" size="28" strokeWidth={2.5} />
           </HeaderButton>
           <HeaderText>Details</HeaderText>

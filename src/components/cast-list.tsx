@@ -15,14 +15,10 @@ type Props = {
 }
 
 export function CastList({ cast }: Props) {
-  function handleActorDetails(id: number) {
-    router.navigate('/details/actor/' + id)
-  }
-
   function renderItem({ item }: { item: CastListProps }) {
     return (
       <CardCast
-        onPress={() => handleActorDetails(item.id)}
+        onPress={() => router.navigate(`/details/actor/${item.id}`)}
         character={item.character}
         name={item.name}
         profile_path={item.profile_path}

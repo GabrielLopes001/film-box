@@ -25,16 +25,12 @@ type Props = PressableProps & {
 const { width, height } = Dimensions.get('window')
 
 export function CardMovieList({ titlePage, movies, ...rest }: Props) {
-  function handleMovieDetails(id: number) {
-    router.navigate('/details/movie/' + id)
-  }
-
   function renderItem({ item }: { item: CardMovieListProps }) {
     return (
       <View className="mr-4 space-y-1">
         <MovieCardRoot
           activeOpacity={0.7}
-          onPress={() => handleMovieDetails(item.id)}
+          onPress={() => router.navigate(`/details/movie/${item.id}`)}
         >
           <MovieCardImage>
             <Image

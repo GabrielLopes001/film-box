@@ -1,12 +1,21 @@
 /* eslint-disable camelcase */
 import { ReactNode } from 'react'
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import {
+  Text,
+  TextProps,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native'
 
 type MovieCardRootProps = TouchableOpacityProps & {
   children: ReactNode
 }
 
 type MovieCardImageProps = {
+  children: ReactNode
+}
+
+type MovieCardTextProps = TextProps & {
   children: ReactNode
 }
 
@@ -18,4 +27,8 @@ function MovieCardImage({ children }: MovieCardImageProps) {
   return children
 }
 
-export { MovieCardRoot, MovieCardImage }
+function MovieCardText({ children, ...rest }: MovieCardTextProps) {
+  return <Text {...rest}>{children}</Text>
+}
+
+export { MovieCardRoot, MovieCardImage, MovieCardText }
