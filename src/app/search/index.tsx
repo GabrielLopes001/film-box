@@ -73,7 +73,7 @@ export default function Search() {
           placeholder="Buscar Filme"
         />
         <View className="m-1 rounded-full bg-neutral-500 p-3">
-          <HeaderButton>
+          <HeaderButton onPress={() => router.navigate('/')}>
             <HeaderIcon>
               <XMarkIcon color="white" size="28" strokeWidth={2.5} />
             </HeaderIcon>
