@@ -37,7 +37,9 @@ export function CarrouselMovie({ movies, title }: CarrouselMovieProps) {
 
   return (
     <View className="mb-8">
-      <Text className="mx-4 mb-5 text-xl text-white">{title}</Text>
+      <View className="mx-4">
+        <Text className="mx-4 mb-5 text-xl text-white">{title}</Text>
+      </View>
       <Carousel
         data={movies}
         firstItem={1}

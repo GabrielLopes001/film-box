@@ -11,6 +11,7 @@ import {
   HeaderRoot,
   HeaderText,
 } from '@/components/header'
+import { Loading } from '@/components/loading'
 import { api } from '@/services/api'
 import { MOVIES } from '@/utils/movies'
 
@@ -21,6 +22,8 @@ export default function Actor() {
   const [actorMovies, setActorMovies] = useState<CardMovieListProps[]>(
     [] as CardMovieListProps[],
   )
+  const [isLoading, setIsLoading] = useState(true)
+
   const { id } = useLocalSearchParams()
 
   const navigation = useNavigation()
@@ -29,9 +32,12 @@ export default function Actor() {
     try {
       const response = await api.get(`/person/${id}`)
       const data = response.data
+      setIsLoading(true)
       setActorDetails(data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -39,9 +45,12 @@ export default function Actor() {
     try {
       const response = await api.get(`/person/${id}/movie_credits`)
       const data = response.data.cast
+      setIsLoading(true)
       setActorMovies(data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -51,11 +60,7 @@ export default function Actor() {
   }, [])
 
   return (
-    <ScrollView
-      className="flex-1 bg-neutral-900"
-      contentContainerStyle={{ paddingBottom: 20 }}
-      showsVerticalScrollIndicator={false}
-    >
+    <View className="flex-1 bg-neutral-900">
       <View className="mb-8">
         <HeaderRoot>
           <HeaderButton onPress={() => navigation.goBack()}>
@@ -72,9 +77,17 @@ export default function Actor() {
         </HeaderRoot>
       </View>
 
-      <ActorDetails actor={actorDetails} />
-
-      <CardMovieList movies={actorMovies} titlePage="Movies" />
-    </ScrollView>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ScrollView
+          contentContainerStyle={{ paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <ActorDetails actor={actorDetails} />
+          <CardMovieList movies={actorMovies} titlePage="Movies" />
+        </ScrollView>
+      )}
+    </View>
   )
 }

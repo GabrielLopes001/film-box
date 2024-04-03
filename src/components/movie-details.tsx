@@ -32,20 +32,23 @@ export function MovieDetails({ movie }: Props) {
     <View className="flex-1">
       <Image
         source={{
-          uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          uri: `https://image.tmdb.org/t/p/w500${movie?.poster_path}`,
         }}
         alt="poster"
         style={{ width, height: height * 0.55 }}
       />
-      <Text className="text-center text-3xl font-bold tracking-wider text-white">
-        {movie.title}
-      </Text>
-      <View className="w-full flex-row gap-8 justify-center items-center">
-        <Text className="text-base font-semibold text-neutral-400">
-          <CalendarIcon size="14" color="gray" /> {getYear(movie.release_date)}
+      <View className="my-2">
+        <Text className="text-center text-3xl font-bold tracking-wider text-white">
+          {movie?.title}
         </Text>
+      </View>
+      <View className="w-full flex-row gap-8 justify-center items-center mb-2">
+        <Text className="text-base font-semibold text-neutral-400">
+          <CalendarIcon size="14" color="gray" /> {getYear(movie?.release_date)}
+        </Text>
+
         <Text className=" text-base font-semibold text-neutral-400">
-          <ClockIcon size="14" color="gray" /> {movie.runtime} min
+          <ClockIcon size="14" color="gray" /> {movie?.runtime} min
         </Text>
         <Text
           className={twMerge(
@@ -55,14 +58,14 @@ export function MovieDetails({ movie }: Props) {
         >
           <StarIcon
             size="14"
-            color={movie.vote_average > 7.0 ? 'orange' : 'gray'}
+            color={movie?.vote_average > 7.0 ? 'orange' : 'gray'}
           />
+
           {movie?.vote_average?.toFixed(2)}
         </Text>
       </View>
-
       <Text className="mx-4 text-center tracking-wide text-neutral-400">
-        {movie.overview}
+        {movie?.overview}
       </Text>
     </View>
   )

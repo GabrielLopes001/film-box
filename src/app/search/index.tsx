@@ -10,6 +10,7 @@ import {
 } from '@/components/card-movie'
 import { CardMovieListProps } from '@/components/card-movie-list'
 import { HeaderButton, HeaderIcon, HeaderTextInput } from '@/components/header'
+import { Loading } from '@/components/loading'
 import { api } from '@/services/api'
 
 const { width, height } = Dimensions.get('window')
@@ -19,15 +20,19 @@ export default function Search() {
     [] as CardMovieListProps[],
   )
 
+  const [isLoading, setIsLoading] = useState(false)
+
   async function fetchSearchMovie(value: string) {
     if (value && value.length > 3) {
       try {
         const response = await api.get(`/search/movie?query=${value}`)
         const data = response.data.results
-        //   console.log(data)
+        setIsLoading(true)
         setMoviesResults(data)
       } catch (error) {
         console.log(error)
+      } finally {
+        setIsLoading(false)
       }
     }
   }
@@ -75,7 +80,9 @@ export default function Search() {
           </HeaderButton>
         </View>
       </View>
-      {moviesResults.length > 0 ? (
+      {isLoading ? (
+        <Loading />
+      ) : moviesResults.length > 0 ? (
         <View className="flex-1">
           <FlatList
             data={moviesResults}
@@ -91,10 +98,8 @@ export default function Search() {
           />
         </View>
       ) : (
-        <View>
-          <Text className="text-3xl text-white">
-            COLOCAR IMAGEM DE FILME N ENCONTRADO
-          </Text>
+        <View className="flex-row justify-center">
+          <Text className="text-white">IMAGE OF EMPTY LIST MOVIES</Text>
         </View>
       )}
     </View>

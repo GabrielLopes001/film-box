@@ -1,4 +1,4 @@
-import { router, useNavigation } from 'expo-router'
+import { router } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import {
@@ -14,6 +14,7 @@ import {
   HeaderRoot,
   HeaderText,
 } from '@/components/header'
+import { Loading } from '@/components/loading'
 import { api } from '@/services/api'
 import { MOVIES } from '@/utils/movies'
 
@@ -27,14 +28,18 @@ export default function Home() {
   const [topRatedMovies, setTopRatedMovies] = useState<CardMovieListProps[]>(
     [] as CardMovieListProps[],
   )
+  const [isLoading, setIsLoading] = useState(true)
 
   async function fetchNewMovies() {
     try {
       const response = await api.get('/movie/now_playing')
       const data = response.data.results
+      setIsLoading(true)
       setNewMovies(data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -42,9 +47,12 @@ export default function Home() {
     try {
       const response = await api.get('/movie/upcoming')
       const data = response.data.results
+      setIsLoading(true)
       setUpComingMovies(data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -52,9 +60,12 @@ export default function Home() {
     try {
       const response = await api.get('/movie/top_rated')
       const data = response.data.results
+      setIsLoading(true)
       setTopRatedMovies(data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -80,11 +91,15 @@ export default function Home() {
         </HeaderButton>
       </HeaderRoot>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <CarrouselMovie movies={newMovies} title="Treading" />
-        <CardMovieList movies={upComingMovies} titlePage="UpComing" />
-        <CardMovieList movies={topRatedMovies} titlePage="TopRated" />
-      </ScrollView>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <CarrouselMovie movies={newMovies} title="Treading" />
+          <CardMovieList movies={upComingMovies} titlePage="UpComing" />
+          <CardMovieList movies={topRatedMovies} titlePage="TopRated" />
+        </ScrollView>
+      )}
     </View>
   )
 }

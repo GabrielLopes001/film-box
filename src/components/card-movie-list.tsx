@@ -49,8 +49,9 @@ export function CardMovieList({ titlePage, movies, ...rest }: Props) {
 
   return (
     <View className="mb-8 space-y-4">
-      <View className="flex-row mx-4 justify-between">
+      <View className="flex-row mx-4 mb-3 justify-between">
         <Text className="text-xl text-white">{titlePage}</Text>
+
         <Pressable {...rest}>
           <Text className="text-lg text-orange-400">See All</Text>
         </Pressable>
