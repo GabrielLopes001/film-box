@@ -1,15 +1,16 @@
 /* eslint-disable camelcase */
 import { router, useLocalSearchParams } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ScrollView, View } from 'react-native'
-import { ChevronLeftIcon } from 'react-native-heroicons/outline'
-import { HeartIcon } from 'react-native-heroicons/solid'
+import { ChevronLeftIcon, HeartIcon } from 'react-native-heroicons/outline'
 
+// import { HeartIcon } from 'react-native-heroicons/solid'
 import { CardMovieList, CardMovieListProps } from '@/components/card-movie-list'
 import { CastList, CastListProps } from '@/components/cast-list'
 import { HeaderButton, HeaderRoot, HeaderText } from '@/components/header'
 import { Loading } from '@/components/loading'
 import { MovieDetails, MovieDetailsProps } from '@/components/movie-details'
+import { MovieContext } from '@/contexts/MoviesContext'
 import { api } from '@/services/api'
 import { MOVIES } from '@/utils/movies'
 
@@ -26,7 +27,18 @@ export default function Movie() {
 
   const [isLoading, setIsLoading] = useState(true)
 
+  const { addFavoriteMovie, removeFavoriteMovie, favoritesMovies } =
+    useContext(MovieContext)
+
   const { id } = useLocalSearchParams()
+
+  function handleFavoriteMovie(movieId: number) {
+    if (favoritesMovies.includes(movieId)) {
+      removeFavoriteMovie(moviesDetails.id)
+    } else {
+      addFavoriteMovie(moviesDetails.id)
+    }
+  }
 
   async function fetchMoviesDetails() {
     try {
@@ -81,8 +93,13 @@ export default function Movie() {
             <ChevronLeftIcon color="white" size="28" strokeWidth={2.5} />
           </HeaderButton>
           <HeaderText>Details</HeaderText>
-          <HeaderButton>
-            <HeartIcon color="white" size="35" />
+          <HeaderButton onPress={() => handleFavoriteMovie(moviesDetails.id)}>
+            <HeartIcon
+              color={
+                favoritesMovies.includes(moviesDetails.id) ? 'orange' : 'white'
+              }
+              size="35"
+            />
           </HeaderButton>
         </HeaderRoot>
       </View>

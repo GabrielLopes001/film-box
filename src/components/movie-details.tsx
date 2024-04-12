@@ -8,6 +8,7 @@ import {
 import { twMerge } from 'tailwind-merge'
 
 export type MovieDetailsProps = {
+  id?: number
   poster_path?: string
   title: string
   overview: string

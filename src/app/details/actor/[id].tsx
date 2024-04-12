@@ -81,7 +81,7 @@ export default function Actor() {
         <Loading />
       ) : (
         <ScrollView
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={{ paddingBottom: 20, margin: 16 }}
           showsVerticalScrollIndicator={false}
         >
           <ActorDetails actor={actorDetails} />
