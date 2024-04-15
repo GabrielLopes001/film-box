@@ -14,75 +14,68 @@ import {
   storageFavoritesMoviesGet,
 } from '@/storages/storage-movies'
 
-type MoviesContextData = {
-  favoritesMovies: number[]
-  allFavoritesMovies: CardMovieListProps[]
-  addFavoriteMovie: (movieId: number) => void
-  removeFavoriteMovie: (movieId: number) => void
+interface MovieContextData {
+  favoriteMovies: number[]
+  allFavoriteMovies: CardMovieListProps[]
+  addFavoriteMovie: (movieId: number) => Promise<void>
+  removeFavoriteMovie: (movieId: number) => Promise<void>
 }
 
-export const MovieContext = createContext<MoviesContextData>({
-  favoritesMovies: [],
-  allFavoritesMovies: [],
-  addFavoriteMovie: () => {},
-  removeFavoriteMovie: () => {},
-})
+export const MovieContext = createContext<MovieContextData>(
+  {} as MovieContextData,
+)
 
-type MovieProvideProps = {
+type MovieProviderProps = {
   children: ReactNode
 }
 
-export function MovieProvider({ children }: MovieProvideProps) {
-  const [favoritesMovies, setFavoritesMovies] = useState<number[]>([])
-  const [allFavoritesMovies, setAllFavoritesMovies] = useState<
+export const MovieProvider = ({ children }: MovieProviderProps) => {
+  const [favoriteMovies, setFavoriteMovies] = useState<number[]>([])
+  const [allFavoriteMovies, setAllFavoriteMovies] = useState<
     CardMovieListProps[]
   >([] as CardMovieListProps[])
 
   useEffect(() => {
+    async function loadFavoriteMovies() {
+      const favoriteMovies = await storageFavoritesMoviesGet()
+      if (favoriteMovies) {
+        setFavoriteMovies(favoriteMovies)
+      }
+    }
     loadFavoriteMovies()
   }, [])
 
   const addFavoriteMovie = useCallback(
     async (movieId: number) => {
-      if (!favoritesMovies.includes(movieId)) {
-        const newFavoriteMovies = [...favoritesMovies, movieId]
-        setFavoritesMovies(newFavoriteMovies)
+      if (!favoriteMovies.includes(movieId)) {
+        const newFavoriteMovies = [...favoriteMovies, movieId]
+        setFavoriteMovies(newFavoriteMovies)
         await storageFavoriteMoviesSave(newFavoriteMovies)
       }
     },
-    [favoritesMovies],
+    [favoriteMovies],
   )
 
   const removeFavoriteMovie = useCallback(
     async (movieId: number) => {
-      const newFavoriteMovies = favoritesMovies.filter((id) => id !== movieId)
-      setFavoritesMovies(newFavoriteMovies)
+      const newFavoriteMovies = favoriteMovies.filter((id) => id !== movieId)
+      setFavoriteMovies(newFavoriteMovies)
       await storageFavoriteMoviesSave(newFavoriteMovies)
     },
-    [favoritesMovies],
+    [favoriteMovies],
   )
 
-  async function loadFavoriteMovies() {
-    const movies = await storageFavoritesMoviesGet()
-    if (movies) {
-      setFavoritesMovies(movies)
-      console.log(favoritesMovies)
-    }
-  }
-
-  const parsedFavoriteMovies = useMemo(() => favoritesMovies, [favoritesMovies])
+  const parsedFavoriteMovies = useMemo(() => favoriteMovies, [favoriteMovies])
 
   const getAllFavoriteMovies = useCallback(async () => {
     try {
       const movies = await Promise.all(
         parsedFavoriteMovies.map(async (movieId: number) => {
-          const response = await api.get<CardMovieListProps>(
-            `/movie/${movieId}`,
-          )
+          const response = await api.get(`/movie/${movieId}`)
           return response.data
         }),
       )
-      setAllFavoritesMovies(movies)
+      setAllFavoriteMovies(movies)
     } catch (error) {
       console.log(error)
     }
@@ -92,15 +85,15 @@ export function MovieProvider({ children }: MovieProvideProps) {
     getAllFavoriteMovies()
   }, [parsedFavoriteMovies, getAllFavoriteMovies])
 
+  const contextData: MovieContextData = {
+    favoriteMovies: parsedFavoriteMovies,
+    allFavoriteMovies,
+    addFavoriteMovie,
+    removeFavoriteMovie,
+  }
+
   return (
-    <MovieContext.Provider
-      value={{
-        favoritesMovies: parsedFavoriteMovies,
-        allFavoritesMovies,
-        addFavoriteMovie,
-        removeFavoriteMovie,
-      }}
-    >
+    <MovieContext.Provider value={contextData}>
       {children}
     </MovieContext.Provider>
   )
