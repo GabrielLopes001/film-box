@@ -12,7 +12,7 @@ import {
 import { MovieCardImage, MovieCardRoot } from '@/components/card-movie'
 
 export type CardMovieListProps = {
-  id?: number
+  id: number
   poster_path: string
   title: string
 }

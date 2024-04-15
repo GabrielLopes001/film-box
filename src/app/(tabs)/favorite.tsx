@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Dimensions, FlatList, Image, Text, View } from 'react-native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 
@@ -11,19 +11,14 @@ import {
 import { CardMovieListProps } from '@/components/card-movie-list'
 import { HeaderButton, HeaderRoot, HeaderText } from '@/components/header'
 import { Loading } from '@/components/loading'
-import { MovieContext } from '@/contexts/MoviesContext'
+import { useMovie } from '@/hooks/useMovie'
 
 const { width, height } = Dimensions.get('window')
 
 export default function Favorite() {
-  const [moviesResults, setMoviesResults] = useState<CardMovieListProps[]>(
-    [] as CardMovieListProps[],
-  )
-  const { allFavoritesMovies } = useContext(MovieContext)
-
   const [isLoading, setIsLoading] = useState(false)
 
-  async function fetchSearchMovie() {}
+  const { allFavoriteMovies } = useMovie()
 
   function renderItem({ item }: { item: CardMovieListProps }) {
     return (
@@ -67,11 +62,11 @@ export default function Favorite() {
 
       {isLoading ? (
         <Loading />
-      ) : allFavoritesMovies.length > 0 ? (
+      ) : allFavoriteMovies.length > 0 ? (
         <View className="flex-1">
           <FlatList
-            data={allFavoritesMovies}
-            keyExtractor={(item) => item.id}
+            data={allFavoriteMovies}
+            keyExtractor={(item) => item.id.toString()}
             numColumns={2}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
