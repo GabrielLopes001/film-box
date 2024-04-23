@@ -87,7 +87,7 @@ export default function Movie() {
     <View className="flex-1 bg-neutral-900">
       <View className="mb-4">
         <HeaderRoot>
-          <HeaderButton onPress={() => router.navigate('/')}>
+          <HeaderButton onPress={() => router.navigate('/(tabs)/')}>
             <ChevronLeftIcon color="white" size="28" strokeWidth={2.5} />
           </HeaderButton>
           <HeaderText>Details</HeaderText>
