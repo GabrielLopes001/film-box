@@ -9,9 +9,8 @@ import { CastList, CastListProps } from '@/components/cast-list'
 import { HeaderButton, HeaderRoot, HeaderText } from '@/components/header'
 import { Loading } from '@/components/loading'
 import { MovieDetails, MovieDetailsProps } from '@/components/movie-details'
-import { useMovie } from '@/hooks/useMovie'
+import { useAuth } from '@/hooks/useAuth'
 import { api } from '@/services/api'
-import { MOVIES } from '@/utils/movies'
 
 export default function Movie() {
   const [moviesDetails, setMoviesDetails] = useState<MovieDetailsProps>(
@@ -26,7 +25,7 @@ export default function Movie() {
 
   const [isLoading, setIsLoading] = useState(true)
 
-  const { addFavoriteMovie, removeFavoriteMovie, favoriteMovies } = useMovie()
+  const { addFavoriteMovie, removeFavoriteMovie, favoriteMovies } = useAuth()
 
   const { id } = useLocalSearchParams()
 

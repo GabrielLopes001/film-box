@@ -11,14 +11,14 @@ import {
 import { CardMovieListProps } from '@/components/card-movie-list'
 import { HeaderButton, HeaderRoot, HeaderText } from '@/components/header'
 import { Loading } from '@/components/loading'
-import { useMovie } from '@/hooks/useMovie'
+import { useAuth } from '@/hooks/useAuth'
 
 const { width, height } = Dimensions.get('window')
 
 export default function Favorite() {
   const [isLoading, setIsLoading] = useState(false)
 
-  const { allFavoriteMovies } = useMovie()
+  const { allFavoriteMovies } = useAuth()
 
   function renderItem({ item }: { item: CardMovieListProps }) {
     return (

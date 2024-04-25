@@ -13,36 +13,63 @@ import {
   storageFavoriteMoviesSave,
   storageFavoritesMoviesGet,
 } from '@/storages/storage-movies'
+import { storageUserGet, storageUserSave } from '@/storages/storage-user'
 
-interface MovieContextData {
+interface AuthContextDataProps {
   favoriteMovies: number[]
   allFavoriteMovies: CardMovieListProps[]
   addFavoriteMovie: (movieId: number) => Promise<void>
   removeFavoriteMovie: (movieId: number) => Promise<void>
+  user: string
+  updateUserProfile: (userUpdated: string) => Promise<void>
 }
 
-export const MovieContext = createContext<MovieContextData>(
-  {} as MovieContextData,
-)
-
-type MovieProviderProps = {
+type AuthContextProviderProps = {
   children: ReactNode
 }
 
-export const MovieProvider = ({ children }: MovieProviderProps) => {
+export const AuthContext = createContext<AuthContextDataProps>(
+  {} as AuthContextDataProps,
+)
+
+export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [favoriteMovies, setFavoriteMovies] = useState<number[]>([])
   const [allFavoriteMovies, setAllFavoriteMovies] = useState<
     CardMovieListProps[]
   >([] as CardMovieListProps[])
+  const [user, setUser] = useState('')
+
+  async function userUpdate(user: string) {
+    setUser(user)
+  }
+
+  async function updateUserProfile(userUpdated: string) {
+    try {
+      setUser(userUpdated)
+      await storageUserSave(userUpdated)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function loadUserData() {
+    const user = await storageUserGet()
+
+    if (user) {
+      await userUpdate(user)
+    }
+  }
+
+  async function loadFavoriteMovies() {
+    const favoriteMovies = await storageFavoritesMoviesGet()
+    if (favoriteMovies) {
+      setFavoriteMovies(favoriteMovies)
+    }
+  }
 
   useEffect(() => {
-    async function loadFavoriteMovies() {
-      const favoriteMovies = await storageFavoritesMoviesGet()
-      if (favoriteMovies) {
-        setFavoriteMovies(favoriteMovies)
-      }
-    }
     loadFavoriteMovies()
+    loadUserData()
   }, [])
 
   const addFavoriteMovie = useCallback(
@@ -85,16 +112,16 @@ export const MovieProvider = ({ children }: MovieProviderProps) => {
     getAllFavoriteMovies()
   }, [parsedFavoriteMovies, getAllFavoriteMovies])
 
-  const contextData: MovieContextData = {
+  const contextData: AuthContextDataProps = {
     favoriteMovies: parsedFavoriteMovies,
     allFavoriteMovies,
     addFavoriteMovie,
     removeFavoriteMovie,
+    user,
+    updateUserProfile,
   }
 
   return (
-    <MovieContext.Provider value={contextData}>
-      {children}
-    </MovieContext.Provider>
+    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   )
 }

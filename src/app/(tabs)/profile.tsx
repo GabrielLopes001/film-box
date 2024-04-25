@@ -4,10 +4,10 @@ import { Alert, Image, ScrollView, View } from 'react-native'
 import { FavoriteGenres } from '@/components/favorite-genres'
 import { Preferences } from '@/components/preferences'
 import { User } from '@/components/user'
-import { useUser } from '@/hooks/useUser'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function Profile() {
-  const { user, updateUserProfile } = useUser()
+  const { user, updateUserProfile } = useAuth()
 
   async function handleUserPhotoSelect() {
     try {

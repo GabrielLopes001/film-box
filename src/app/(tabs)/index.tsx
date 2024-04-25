@@ -16,7 +16,6 @@ import {
 } from '@/components/header'
 import { Loading } from '@/components/loading'
 import { api } from '@/services/api'
-import { MOVIES } from '@/utils/movies'
 
 export default function Home() {
   const [newMovies, setNewMovies] = useState<CardMovieListProps[]>(
