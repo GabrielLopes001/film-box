@@ -54,6 +54,7 @@ Como você pode rodar o projeto localmente
 
 ```bash
 cd film-box
+npm install
 npx expo start
 ```
 
