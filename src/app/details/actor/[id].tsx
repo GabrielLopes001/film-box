@@ -69,7 +69,7 @@ export default function Actor() {
             </HeaderIcon>
           </HeaderButton>
           <HeaderText>
-            <Text>Details</Text>
+            <Text>Detalhes</Text>
           </HeaderText>
           <HeaderText>
             <></>
@@ -85,7 +85,7 @@ export default function Actor() {
           showsVerticalScrollIndicator={false}
         >
           <ActorDetails actor={actorDetails} />
-          <CardMovieList movies={actorMovies} titlePage="Movies" />
+          <CardMovieList movies={actorMovies} titlePage="Filmes" />
         </ScrollView>
       )}
     </View>

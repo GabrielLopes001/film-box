@@ -89,7 +89,7 @@ export default function Movie() {
           <HeaderButton onPress={() => router.navigate('/(tabs)/')}>
             <ChevronLeftIcon color="white" size="28" strokeWidth={2.5} />
           </HeaderButton>
-          <HeaderText>Details</HeaderText>
+          <HeaderText>Detalhes</HeaderText>
           <HeaderButton onPress={() => handleFavoriteMovie(moviesDetails.id)}>
             <HeartIcon
               color={
@@ -111,7 +111,7 @@ export default function Movie() {
           <MovieDetails movie={moviesDetails} />
 
           <CastList cast={moviesCredits} />
-          <CardMovieList movies={similarMovies} titlePage="Similar Movies" />
+          <CardMovieList movies={similarMovies} titlePage="Filmes Similares" />
         </ScrollView>
       )}
     </View>

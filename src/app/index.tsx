@@ -24,7 +24,7 @@ export default function SignIn() {
           </View>
         </TouchableOpacity>
         <Link className="text-white mt-8" href="/sign-up">
-          Crie uma conta!
+          Crie uma nova conta!
         </Link>
       </View>
     </View>

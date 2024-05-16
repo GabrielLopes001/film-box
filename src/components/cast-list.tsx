@@ -27,7 +27,7 @@ export function CastList({ cast }: Props) {
   }
   return (
     <View className="flex-1 my-4">
-      <Text className="mx-4 mb-5 text-lg text-white">Top Cast</Text>
+      <Text className="mx-4 mb-5 text-lg text-white">Elenco Principal</Text>
 
       <FlatList
         data={cast}

@@ -53,7 +53,7 @@ export function CardMovieList({ titlePage, movies, ...rest }: Props) {
         <Text className="text-xl text-white">{titlePage}</Text>
 
         <Pressable {...rest}>
-          <Text className="text-lg text-orange-400">See All</Text>
+          <Text className="text-lg text-orange-400">Veja Todos</Text>
         </Pressable>
       </View>
       <FlatList

@@ -82,7 +82,7 @@ export default function Home() {
             <Bars3BottomLeftIcon size="30" strokeWidth={2} color="white" />
           </HeaderIcon>
         </HeaderButton>
-        <HeaderText>Movie</HeaderText>
+        <HeaderText>Filmes</HeaderText>
         <HeaderButton onPress={() => router.navigate('/search/')}>
           <HeaderIcon>
             <MagnifyingGlassIcon size="30" strokeWidth={2} color="white" />
@@ -94,9 +94,9 @@ export default function Home() {
         <Loading />
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
-          <CarrouselMovie movies={newMovies} title="Treading" />
-          <CardMovieList movies={upComingMovies} titlePage="UpComing" />
-          <CardMovieList movies={topRatedMovies} titlePage="TopRated" />
+          <CarrouselMovie movies={newMovies} title="Agora" />
+          <CardMovieList movies={upComingMovies} titlePage="Por Vir" />
+          <CardMovieList movies={topRatedMovies} titlePage="Mais Votado" />
         </ScrollView>
       )}
     </View>

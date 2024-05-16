@@ -73,7 +73,7 @@ export default function Search() {
           placeholder="Buscar Filme"
         />
         <View className="m-1 rounded-full bg-neutral-500 p-3">
-          <HeaderButton onPress={() => router.navigate('/')}>
+          <HeaderButton onPress={() => router.navigate('/(tabs)/')}>
             <HeaderIcon>
               <XMarkIcon color="white" size="28" strokeWidth={2.5} />
             </HeaderIcon>
@@ -86,7 +86,7 @@ export default function Search() {
         <View className="flex-1">
           <FlatList
             data={moviesResults}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id.toString()}
             numColumns={2}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{

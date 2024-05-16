@@ -52,23 +52,23 @@ export function ActorDetails({ actor }: Props) {
 
         <View className="mx-1 mt-6 flex-row items-center justify-between rounded-full bg-neutral-700 p-4">
           <View className="items-center border-r-2 border-r-neutral-400 px-2">
-            <Text className="font-semibold text-white">Gender</Text>
+            <Text className="font-semibold text-white">Genêro</Text>
             <Text className="text-sm text-neutral-300">
               {actor?.gender === 1 ? 'Female' : 'Masc'}
             </Text>
           </View>
           <View className="items-center border-r-2 border-r-neutral-400 px-2">
-            <Text className="font-semibold text-white">Birthday</Text>
+            <Text className="font-semibold text-white">Aniversário</Text>
             <Text className="text-sm  text-neutral-300">{actor?.birthday}</Text>
           </View>
           <View className="items-center border-r-2 border-r-neutral-400 px-2">
-            <Text className="font-semibold text-white">Know for</Text>
+            <Text className="font-semibold text-white">Profissão</Text>
             <Text className="text-sm  text-neutral-300">
               {actor?.known_for_department}
             </Text>
           </View>
           <View className="items-center px-2">
-            <Text className="font-semibold text-white">Popularity</Text>
+            <Text className="font-semibold text-white">Popular</Text>
             <Text className="text-sm  text-neutral-300">
               {actor?.popularity}%
             </Text>
@@ -76,14 +76,14 @@ export function ActorDetails({ actor }: Props) {
         </View>
 
         <View className="my-6 space-y-2">
-          <Text className="text-lg text-white">Biography</Text>
+          <Text className="text-lg text-white">Biografia</Text>
           {actor?.biography?.length > 0 ? (
             <Text className="tracking-wide text-neutral-400">
               {actor?.biography}
             </Text>
           ) : (
             <Text className="tracking-wide text-neutral-400">
-              Unknown Biography
+              Sem Biografia
             </Text>
           )}
         </View>
